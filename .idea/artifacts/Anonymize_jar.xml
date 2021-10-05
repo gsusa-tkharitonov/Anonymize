@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Anonymize:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Anonymize_jar</output-path>
+    <root id="archive" name="Anonymize.jar">
+      <element id="module-output" name="Anonymize" />
+    </root>
+  </artifact>
+</component>
