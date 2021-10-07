@@ -5,12 +5,23 @@ import java.util.Date;
 import java.util.Random;
 
 public class Anonymizer {
+
+    /**
+     * Randomize Input String
+     * @param piiString String to randomize
+     * @return Random String of the same length as the input
+     */
     public static String anonString(String piiString) {
         if(piiString == null) return null;
         if(piiString.isEmpty()) return "";
         return generateString(piiString);
     }
 
+    /**
+     * Generate Random Number
+     * @param piiNumber Number to randomize
+     * @return Return a random number in the range of the Input Number
+     */
     public static Integer anonNumber(Integer piiNumber) {
         Random rnd = new Random();
         if(piiNumber == null) return null;
@@ -21,6 +32,11 @@ public class Anonymizer {
         return rndNumber;
     }
 
+    /**
+     * Randomize Email Address
+     * @param piiEmail Email to randomize
+     * @return Randomized email with the same length as the input email.
+     */
     public static String anonEmail(String piiEmail) {
         Random rnd = new Random();
         String dotStr = "\\.";
@@ -39,6 +55,11 @@ public class Anonymizer {
         return rndEmail;
     }
 
+    /**
+     * Randomize Day of Month
+     * @param piiDate Date to randomize.
+     * @return return random day of month with same Year and Month.
+     */
     public static Date anonDate(Date piiDate) {
 
         if(piiDate == null) return null;
@@ -48,6 +69,11 @@ public class Anonymizer {
         return cal.getTime();
     }
 
+    /**
+     * Generate random String based on Input String
+     * @param characters original string
+     * @return Random String with same length as input
+     */
     static String generateString(String characters)
     {
         Random rnd = new Random();
@@ -59,6 +85,7 @@ public class Anonymizer {
         }
         return new String(text);
     }
+
     public static void main(String[] args) {
         System.out.println("Test String : "+anonString("Test String"));
         System.out.println("Number 12 : "+anonNumber(12));
