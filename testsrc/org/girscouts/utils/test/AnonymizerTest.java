@@ -30,13 +30,13 @@ public class AnonymizerTest {
 
     @Test
     public void anonNumberNullTest() {
-        assertNull(Anonymizer.anonNumber(null));
+        assertNull(Anonymizer.anonInteger(null));
     }
 
     @Test
     public void anonNumberRandomTest() {
-        System.out.println(Anonymizer.anonNumber(12));
-        assertTrue(Anonymizer.anonNumber(10) != 10);
+        System.out.println(Anonymizer.anonInteger(12));
+        assertTrue(Anonymizer.anonInteger(10) != 10);
     }
 
     @Test

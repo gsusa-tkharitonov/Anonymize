@@ -22,7 +22,7 @@ public class Anonymizer {
      * @param piiNumber Number to randomize
      * @return Return a random number in the range of the Input Number
      */
-    public static Integer anonNumber(Integer piiNumber) {
+    public static Integer anonInteger(Integer piiNumber) {
         Random rnd = new Random();
         if(piiNumber == null) return null;
         int rndNumber = 0;
@@ -65,7 +65,7 @@ public class Anonymizer {
         if(piiDate == null) return null;
         Calendar cal = Calendar.getInstance();
         cal.setTime(piiDate);
-        cal.add(Calendar.DAY_OF_MONTH, anonNumber(30));
+        cal.add(Calendar.DAY_OF_MONTH, anonInteger(30));
         return cal.getTime();
     }
 
@@ -88,7 +88,7 @@ public class Anonymizer {
 
     public static void main(String[] args) {
         System.out.println("Test String : "+anonString("Test String"));
-        System.out.println("Number 12 : "+anonNumber(12));
+        System.out.println("Number 12 : "+ anonInteger(12));
         System.out.println("TestEmail@Test.com : "+anonEmail("TestEmail@Test.com"));
         Date now = new Date();
         System.out.println(now +" : "+anonDate(now));
