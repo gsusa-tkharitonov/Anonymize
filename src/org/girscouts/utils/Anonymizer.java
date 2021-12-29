@@ -25,6 +25,7 @@ public class Anonymizer {
     public static Integer anonInteger(Integer piiNumber) {
         Random rnd = new Random();
         if(piiNumber == null) return null;
+        if(piiNumber == 1) piiNumber = 9; // to avoid endless searching for a random number of 1;
         int rndNumber = 0;
         while(rndNumber == 0){
             rndNumber = rnd.nextInt(piiNumber);
@@ -38,21 +39,32 @@ public class Anonymizer {
      * @return Randomized email with the same length as the input email.
      */
     public static String anonEmail(String piiEmail) {
-        Random rnd = new Random();
-        String dotStr = "\\.";
+        String lastDotStr = ".$";
+        String dotStr = ".";
         String rndEmail = "";
         if(piiEmail == null) return null;
         if(piiEmail.isEmpty()) return "";
         String[] emailParts = piiEmail.split("@");
         rndEmail += generateString(emailParts[0]);
         if(emailParts.length>1){
-            String[] hostParts = emailParts[1].split(dotStr);
+            emailParts[1] = replaceLast(dotStr, ":", emailParts[1]);
+            emailParts[1] = emailParts[1].replaceAll("\\.","_");
+            String[] hostParts = emailParts[1].split(":");
             rndEmail += "@"+generateString(hostParts[0]);
             if(hostParts.length>1){
                 rndEmail += "." + generateString(hostParts[1]);
             }
         }
         return rndEmail;
+    }
+
+    private static String replaceLast(String replaceStr, String with, String sourceStr) {
+        int start = sourceStr.lastIndexOf(replaceStr);
+        StringBuilder builder = new StringBuilder();
+        builder.append(sourceStr.substring(0, start));
+        builder.append(with);
+        builder.append(sourceStr.substring(start + replaceStr.length()));
+        return (builder.toString());
     }
 
     /**
@@ -70,12 +82,34 @@ public class Anonymizer {
     }
 
     /**
+     * Randomize Phone Number
+     * @param piiPhoneNumber Phone Number to randomize.
+     * @return return random Phone Number keeping format.
+     */
+
+    public static String anonPhoneNumber(String piiPhoneNumber) {
+        if(piiPhoneNumber == null) return null;
+        String newNumber = "";
+        for(int i=0;i<piiPhoneNumber.length();i++){
+
+            if(Character.isDigit(piiPhoneNumber.charAt(i))){
+                String digit = "";
+                digit += piiPhoneNumber.charAt(i);
+                newNumber += anonInteger(Integer.valueOf(digit));
+            }else{
+                newNumber += piiPhoneNumber.charAt(i);
+            }
+        }
+        return newNumber;
+    }
+    /**
      * Generate random String based on Input String
      * @param characters original string
      * @return Random String with same length as input
      */
     static String generateString(String characters)
     {
+        characters = characters.replaceAll("\\W", "_");
         Random rnd = new Random();
         int strLength = characters.length();
         char[] text = new char[strLength];
@@ -93,5 +127,4 @@ public class Anonymizer {
         Date now = new Date();
         System.out.println(now +" : "+anonDate(now));
     }
-
 }

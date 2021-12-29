@@ -46,7 +46,15 @@ public class AnonymizerTest {
 
     @Test
     public void anonEmailRandomTest() {
-        String piiEmail = "test@gmail.com";
+        String piiEmail = "test.test@gmail.com";
+        String rndEmail = Anonymizer.anonEmail(piiEmail);
+        System.out.println(rndEmail);
+        assertTrue(piiEmail.length() == rndEmail.length());
+        assertTrue(!Anonymizer.anonEmail(piiEmail).equals(piiEmail));
+    }
+    @Test
+    public void anonEmail2RandomTest() {
+        String piiEmail = "test.test@test.gmail.com";
         String rndEmail = Anonymizer.anonEmail(piiEmail);
         System.out.println(rndEmail);
         assertTrue(piiEmail.length() == rndEmail.length());
@@ -70,5 +78,27 @@ public class AnonymizerTest {
         System.out.println("changed : "+changed);
         assertTrue(calNow.get(Calendar.DAY_OF_MONTH) != calChanged.get(Calendar.DAY_OF_MONTH));
         assertTrue(calNow.get(Calendar.MONTH) == calChanged.get(Calendar.MONTH));
+    }
+
+    @Test
+    public void anonPhoneNullTest() {
+        assertNull(Anonymizer.anonPhoneNumber(null));
+    }
+
+    @Test
+    public void anonPhoneRandomTest() {
+        String piiPhone = "(121)-123-1231";
+        String randomPhone = Anonymizer.anonPhoneNumber(piiPhone);
+        System.out.println(randomPhone);
+        assertTrue(piiPhone.length() == randomPhone.length());
+        assertTrue(!randomPhone.equals(piiPhone));
+    }
+    @Test
+    public void anonPhoneRandom2Test() {
+        String piiPhone = "1211231231";
+        String randomPhone = Anonymizer.anonPhoneNumber(piiPhone);
+        System.out.println(randomPhone);
+        assertTrue(piiPhone.length() == randomPhone.length());
+        assertTrue(!randomPhone.equals(piiPhone));
     }
 }
