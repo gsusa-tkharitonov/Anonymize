@@ -89,6 +89,7 @@ public class Anonymizer {
 
     public static String anonPhoneNumber(String piiPhoneNumber) {
         if(piiPhoneNumber == null) return null;
+        if(piiPhoneNumber.isEmpty()) return piiPhoneNumber;
         String newNumber = "";
         for(int i=0;i<piiPhoneNumber.length();i++){
 
