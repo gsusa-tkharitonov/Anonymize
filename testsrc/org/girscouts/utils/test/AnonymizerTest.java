@@ -95,7 +95,23 @@ public class AnonymizerTest {
     }
     @Test
     public void anonPhoneRandom2Test() {
-        String piiPhone = "1211231231";
+        String piiPhone = "(123) 456-7890";
+        String randomPhone = Anonymizer.anonPhoneNumber(piiPhone);
+        System.out.println(randomPhone);
+        assertTrue(piiPhone.length() == randomPhone.length());
+        assertTrue(!randomPhone.equals(piiPhone));
+    }
+    @Test
+    public void anonPhoneRandom3Test() {
+        String piiPhone = "(123)456-7890";
+        String randomPhone = Anonymizer.anonPhoneNumber(piiPhone);
+        System.out.println(randomPhone);
+        assertTrue(piiPhone.length() == randomPhone.length());
+        assertTrue(!randomPhone.equals(piiPhone));
+    }
+    @Test
+    public void anonPhoneRandom4Test() {
+        String piiPhone = "1234567890";
         String randomPhone = Anonymizer.anonPhoneNumber(piiPhone);
         System.out.println(randomPhone);
         assertTrue(piiPhone.length() == randomPhone.length());

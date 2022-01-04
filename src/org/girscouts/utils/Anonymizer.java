@@ -6,6 +6,7 @@ import java.util.Random;
 
 public class Anonymizer {
 
+    static final String DEFAULT_PHONE_NUMBER = "(123)-546-7890";
     /**
      * Randomize Input String
      * @param piiString String to randomize
@@ -25,10 +26,14 @@ public class Anonymizer {
     public static Integer anonInteger(Integer piiNumber) {
         Random rnd = new Random();
         if(piiNumber == null) return null;
-        if(piiNumber == 1) piiNumber = 9; // to avoid endless searching for a random number of 1;
+        if(piiNumber < 2) piiNumber = 9; // to avoid endless searching and argument exception;
         int rndNumber = 0;
-        while(rndNumber == 0){
-            rndNumber = rnd.nextInt(piiNumber);
+        try {
+            while (rndNumber == 0) {
+                rndNumber = rnd.nextInt(piiNumber);
+            }
+        }catch(IllegalArgumentException e){
+            return 1;
         }
         return rndNumber;
     }
